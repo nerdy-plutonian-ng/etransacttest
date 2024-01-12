@@ -26,10 +26,8 @@ class _AuthSheetState extends State<AuthSheet> {
     });
   }
 
-  loginOrRegister(){
-    if(key.currentState?.validate() ?? false){
-      print(_authFields);
-    }
+  loginOrRegister() {
+    if (key.currentState?.validate() ?? false) {}
   }
 
   @override
@@ -49,57 +47,60 @@ class _AuthSheetState extends State<AuthSheet> {
     super.dispose();
   }
 
-  onChange(String key,String secondKey, String value){
+  onChange(String key, String secondKey, String value) {
     _authFields[key]![secondKey] = value;
   }
 
   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: key,
-      child: ListView(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              TextButton(
-                  style: TextButton.styleFrom(
-                      foregroundColor: tabIndex == 1 ? Colors.grey : null),
-                  onPressed: () {
-                    setState(() {
-                      tabIndex = 0;
-                      _authFields.addAll({
-                        'Full Name': {'placeholder': '', 'value': ''}
+    return Container(
+      child: Form(
+        key: key,
+        child: ListView(
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceAround,
+              children: [
+                TextButton(
+                    style: TextButton.styleFrom(
+                        foregroundColor: tabIndex == 1 ? Colors.grey : null),
+                    onPressed: () {
+                      setState(() {
+                        tabIndex = 0;
+                        _authFields.addAll({
+                          'Full Name': {'placeholder': '', 'value': ''}
+                        });
                       });
-                    });
-                  },
-                  child: const Text('Create Account')),
-              TextButton(
-                  style: TextButton.styleFrom(
-                      foregroundColor: tabIndex == 0 ? Colors.grey : null),
-                  onPressed: () {
-                    setState(() {
-                      tabIndex = 1;
-                      _authFields.remove('Full Name');
-                    });
-                  },
-                  child: const Text('Login')),
-            ],
-          ),
-          for (var i = 0; i < authFields.length; i++)
-            AppTextBox(
-              onChange : onChange,
-              validator: emptyValidator,
-              label: _authFields.keys.toList()[i],
-              placeholder:
-                  (_authFields[_authFields.keys.toList()[i]])!['placeholder']!,
+                    },
+                    child: const Text('Create Account')),
+                TextButton(
+                    style: TextButton.styleFrom(
+                        foregroundColor: tabIndex == 0 ? Colors.grey : null),
+                    onPressed: () {
+                      setState(() {
+                        tabIndex = 1;
+                        _authFields.remove('Full Name');
+                      });
+                    },
+                    child: const Text('Login')),
+              ],
             ),
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: AppButtons(
-                action: loginOrRegister, label: tabIndex == 0 ? 'Register' : 'Login'),
-          )
-        ],
+            for (var i = 0; i < authFields.length; i++)
+              AppTextBox(
+                onChange: onChange,
+                validator: emptyValidator,
+                label: _authFields.keys.toList()[i],
+                placeholder: (_authFields[_authFields.keys.toList()[i]])![
+                    'placeholder']!,
+              ),
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: AppButtons(
+                  action: loginOrRegister,
+                  label: tabIndex == 0 ? 'Register' : 'Login'),
+            )
+          ],
+        ),
       ),
     );
   }

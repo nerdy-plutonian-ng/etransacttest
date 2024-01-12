@@ -1,8 +1,13 @@
 import 'package:codingtest/router_config.dart';
+import 'package:codingtest/ui/screens/dashboard/dashboard_state.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 main() {
-  runApp(const CodingTestApp());
+  runApp(ChangeNotifierProvider(
+    child: const CodingTestApp(),
+    create: (_) => DashBoardState(),
+  ));
 }
 
 class CodingTestApp extends StatelessWidget {
